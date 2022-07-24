@@ -1,11 +1,31 @@
 <template>
-  <Tutorial/>
+  <div>
+    <h1>hello world! this video has {{ likes }}</h1>
+    <button
+      @click="
+        () => {
+          lol();
+          likes++;
+        }
+      "
+    >
+      trolling
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+export default {
+  data() {
+    return {
+      likes: 0,
+    };
+  },
 
-export default Vue.extend({
-  name: 'IndexPage'
-})
+  methods: {
+    lol() {
+      alert("haiz");
+    },
+  },
+};
 </script>
