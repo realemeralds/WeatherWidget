@@ -1,11 +1,22 @@
 <template>
-  <Tutorial/>
+  <div
+    class="relative flex h-screen w-screen flex-col items-center justify-center"
+  >
+    <p class="mb-8 text-3xl font-light text-white">WeatherWidget</p>
+    <SearchBar />
+    <Socials />
+  </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script setup lang="ts">
+import { reactive, onMounted } from "vue";
+const state = reactive({ count: 0 });
 
-export default Vue.extend({
-  name: 'IndexPage'
-})
+function increment() {
+  state.count++;
+}
+
+onMounted(() => {
+  console.log("hello world?");
+});
 </script>

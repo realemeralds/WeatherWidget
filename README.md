@@ -1,11 +1,14 @@
 # WeatherWidget
+
 Aestetically pleasing widget for Notion.
 
 ## Tech Stack
+
 As of now, the following technologies are being used.
-* Express and Node.js for the backend + communicating to the server
-* Tailwind + PostCSS to write CSS
-* Nuxt3 for frontend
+
+- Express and Node.js for the backend + communicating to the server
+- Tailwind + PostCSS to write CSS
+- Nuxt3 for frontend
 
 > Note: there will be two separate repos for the source code.# WeatherWidget
 
@@ -49,7 +52,6 @@ More information about the usage of this directory in [the documentation](https:
 Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
 
 ### `pages`
 
