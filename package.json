@@ -1,5 +1,5 @@
 {
-  "name": "WeatherWidget",
+  "name": "weather-widget",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,8 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "npx eslint --ext .ts,.js,.vue ."
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
@@ -28,10 +29,15 @@
     "@nuxt/image": "^0.7.1",
     "@nuxt/types": "^2.15.8",
     "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/eslint-config-typescript": "^10.0.0",
     "@nuxtjs/tailwindcss": "^4.2.1",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
     "concurrently": "^7.3.0",
+    "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
-    "husky": "^8.0.1",
+    "eslint-plugin-vue": "^9.3.0",
+    "husky": "^8.0.0",
     "lint-staged": "^13.0.3",
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",

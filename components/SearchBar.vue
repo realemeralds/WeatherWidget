@@ -17,6 +17,7 @@
         v-for="(result, index) in results"
         class="flex flex-row items-center justify-between bg-slate-100 px-8 py-2"
         :class="resultsClassList.index"
+        :key="index"
       >
         <p class="text-xl font-light">{{ result.name }}</p>
         <div class="flex flex-col items-center justify-center">

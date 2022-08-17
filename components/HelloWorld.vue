@@ -15,9 +15,11 @@
 <script setup lang="ts">
 import Vue, { reactive, onMounted, ref } from "vue";
 
+/*eslint-disable */
 interface State {
   verbIndex: number;
 }
+/*eslint-enable */
 
 const state: State = reactive({ verbIndex: 0 });
 const listOfVerbs = ref([

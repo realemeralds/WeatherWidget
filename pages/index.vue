@@ -9,13 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onMounted } from "vue";
-const state = reactive({ count: 0 });
-
-function increment() {
-  state.count++;
-}
-
+import { onMounted } from "vue";
 onMounted(() => {
   console.log("hello world?");
 });
