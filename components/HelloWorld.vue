@@ -13,26 +13,24 @@
 </template>
 
 <script setup lang="ts">
-import Vue, { reactive, onMounted, ref } from "vue";
+import { reactive, onMounted, ref } from 'vue';
 
-/*eslint-disable */
 interface State {
   verbIndex: number;
 }
-/*eslint-enable */
 
 const state: State = reactive({ verbIndex: 0 });
 const listOfVerbs = ref([
-  "brutal",
-  "savage",
-  "inhuman",
-  "absurd",
-  "barbaric",
-  "barbarous",
-  "cruel",
-  "brutish",
-  "bloodthirsty",
-  "wicked",
+  'brutal',
+  'savage',
+  'inhuman',
+  'absurd',
+  'barbaric',
+  'barbarous',
+  'cruel',
+  'brutish',
+  'bloodthirsty',
+  'wicked',
 ]);
 
 function randomVerbIndex() {

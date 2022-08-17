@@ -36,16 +36,16 @@
 export default {
   data() {
     return {
-      userInput: "",
+      userInput: '',
       results: [
-        { name: "Perth, Australia", temperature: "33" },
-        { name: "Perth, USA", temperature: "33" },
-        { name: "Perth, Britain", temperature: "33" },
+        { name: 'Perth, Australia', temperature: '33' },
+        { name: 'Perth, USA', temperature: '33' },
+        { name: 'Perth, Britain', temperature: '33' },
       ],
       resultsClassList: [
-        "bg-firstResult rounded-t-4xl",
-        "bg-secondResult relative bottom-4",
-        "bg-thirdResult relative bottom-8",
+        'bg-firstResult rounded-t-4xl',
+        'bg-secondResult relative bottom-4',
+        'bg-thirdResult relative bottom-8',
       ],
     };
   },

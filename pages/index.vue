@@ -9,8 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted } from 'vue';
+
 onMounted(() => {
-  console.log("hello world?");
+  console.log('hello world?');
 });
 </script>
