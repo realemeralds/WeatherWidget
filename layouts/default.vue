@@ -1,7 +1,7 @@
 <template>
   <div
-    class="flex h-screen w-screen flex-col items-center justify-center bg-mainBG"
+    class="bg-mainBG flex h-screen w-screen flex-col items-center justify-center"
   >
-    <Nuxt />
+    <slot />
   </div>
 </template>

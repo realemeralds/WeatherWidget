@@ -1,5 +1,18 @@
 module.exports = {
+  mode: 'jit',
+  content: [
+    `./components/**/*.{vue,js,ts}`,
+    `./layouts/**/*.vue`,
+    `./pages/**/*.vue`,
+    `./plugins/**/*.{js,ts}`,
+    // Split in two files to avoid watching issues (https://github.com/nuxt-community/tailwindcss-module/issues/359)
+    `./nuxt.config.js`,
+  ],
   darkMode: 'media', // or 'media' or 'class'
+  variants: {
+    extend: {},
+  },
+  plugins: [],
   theme: {
     borderRadius: {
       none: '0',
@@ -33,8 +46,4 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
 };
