@@ -20,6 +20,9 @@ module.exports = {
   },
   plugins: ['vue', '@typescript-eslint'],
   rules: {
-    'vue/multi-word-component-names': 0,
+    'vue/multi-word-component-names': 1,
+    'import/no-extraneous-dependencies': 1,
+    'import/no-unresolved': 1,
+    'no-undef': 1,
   },
 };

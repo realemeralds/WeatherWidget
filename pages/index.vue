@@ -2,8 +2,8 @@
   <div
     class="relative flex h-screen w-screen flex-col items-center justify-center"
   >
-    <p class="mb-8 text-3xl font-light text-white">WeatherWidget</p>
-    <SearchBar />
+    <a href="#" class="mb-6 text-3xl font-light text-white">WeatherWidget</a>
+    <SearchBar sizing="expanded" />
     <Socials />
   </div>
 </template>

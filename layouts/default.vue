@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="bg-mainBG flex h-screen w-screen flex-col items-center justify-center"
-  >
+  <div class="flex h-screen w-screen flex-col overflow-hidden bg-mainBG">
     <slot />
   </div>
 </template>
