@@ -24,6 +24,7 @@ export default defineNuxtConfig({
   target: 'static',
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxt/image-edge'],
+  buildModules: ['@nuxt3/graphql-codegen-module'],
 
   tailwindcss: {
     configPath: '~/tailwind.config.js',
@@ -93,5 +94,9 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+
+  build: {
+    transpile: ['@apollo/client', 'ts-invariant/process'],
   },
 });

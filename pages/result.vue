@@ -1,7 +1,7 @@
 <template>
   <div class="relative flex justify-center overflow-hidden">
     <div
-      class="absolute top-3 flex h-min w-full flex-row justify-between pl-12 pr-8"
+      class="absolute top-4 flex h-min w-full flex-row justify-between pl-12 pr-8"
     >
       <p class="text-4xl font-light text-white">WeatherWidget</p>
       <SearchBar sizing="compact" results-disabled="True" class="mt-[2px]" />
@@ -320,4 +320,14 @@ const extraInfoState = reactive({
     return sum >= 2;
   }),
 });
+
+// actual routing
+const route = useRoute()
+const htmlParams = route.query
+
+const {pending, data: posts} = useLazyFetch('')
+
+watch(() => route.query, () => {
+  fetchData()
+})
 </script>
