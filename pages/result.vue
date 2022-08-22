@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex justify-center overflow-hidden">
+  <div class="flex justify-center">
     <div
       class="absolute top-4 flex h-min w-full flex-row justify-between pl-12 pr-8"
     >
@@ -10,20 +10,20 @@
       class="align-start flex h-full w-full flex-grow flex-row justify-start"
     >
       <div
-        class="relative flex h-screen w-[430px] translate-y-[72px] flex-col items-start rounded-tr-[50px] bg-optionsBG px-11 pt-6 text-white"
+        class="relative flex h-screen w-[500px] translate-y-[72px] flex-col items-start rounded-tr-[50px] bg-optionsBG px-11 pt-6 text-white"
       >
         <button class="absolute top-9 right-10" @click="hideSettings">
           <font-awesome-icon icon="fa-solid fa-chevron-left" class="text-2xl" />
         </button>
         <p class="mb-3 self-center text-4xl">Settings</p>
         <div
-          class="mb-4 w-[400px] self-center rounded-full border-b-2 border-b-optionsSeparator"
+          class="mb-3 w-[438px] self-center rounded-full border-b-2 border-b-optionsSeparator"
         ></div>
-        <p class="mb-1 text-2xl font-light">Units</p>
+        <p class="mb-2 text-2xl font-light">Units</p>
         <button
           id="dropdownDefault"
           data-dropdown-toggle="dropdown"
-          class="inline-flex w-full items-center justify-between rounded-lg bg-optionsNormalBG py-2.5 pr-2 pl-4 text-center text-xl font-light text-black hover:bg-optionsFocusBG focus:outline-none focus:ring-2 focus:ring-[#F9A1EA]"
+          class="inline-flex w-full items-center justify-between rounded-lg bg-optionsNormalBG py-2.5 pr-2 pl-4 text-center text-2xl font-light text-black hover:bg-optionsFocusBG focus:outline-none focus:ring-2 focus:ring-[#F9A1EA]"
           type="button"
           @click="tempDropdown = true"
           @blur="
@@ -54,145 +54,70 @@
           </svg>
         </button>
         <div
-          class="absolute top-48 z-10 mt-2 w-[412px] overflow-hidden rounded-md"
+          class="absolute top-48 z-10 mt-3 w-[412px] overflow-hidden rounded-md"
           :class="{ hidden: !tempDropdown }"
         >
           <button
-            class="relative z-20 flex w-full items-center bg-optionsNormalBG py-2 px-3 hover:bg-optionsFocusBG"
+            class="flex w-full items-center bg-optionsNormalBG py-2 px-3 hover:bg-optionsFocusBG"
             @click="updateSelectedTemp(index)"
             v-for="(value, index) in selectedTemperatureList"
             :key="index"
           >
-            <p class="text-xl font-light text-black">
+            <p class="text-2xl font-light text-black">
               {{ value }}
             </p>
           </button>
         </div>
-        <div class="mt-4 flex w-full items-center justify-between">
+        <div class="mt-4 mb-2 flex w-full items-center justify-between">
           <p class="text-2xl font-light">Set custom colours</p>
           <label class="relative inline-flex cursor-pointer items-center">
             <input
               type="checkbox"
               value=""
               class="peer sr-only relative z-20"
-              @click="changeColorInputDisabled"
+              checked
             />
             <div
-              class="relative z-0 h-6 w-11 rounded-full bg-gray-400 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none"
+              class="relative z-10 h-6 w-11 rounded-full bg-gray-200 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300"
             ></div>
           </label>
         </div>
         <div
-          class="flex w-full flex-col space-y-3 border-l-2 border-l-optionsSeparator pt-2 pb-1 pl-4"
+          class="flex w-full flex-col space-y-4 border-l-2 border-l-optionsSeparator pt-3 pb-2 pl-5"
         >
-          <div
-            class="relative inline-flex w-full flex-row items-center justify-between"
-            v-for="(item, index) in colorState.fieldNames"
-            :key="index"
-          >
-            <p class="text-xl font-light text-white">{{ item }}</p>
+          <div class="relative inline-flex w-full flex-row justify-between">
+            <p class="text-2xl font-light text-white">Background</p>
             <input
-              class="mr-[66px] w-32 rounded-xl py-2 pl-8 text-xl font-light text-black focus:outline-none disabled:bg-stone-300"
-              type="text"
-              id="backgroundUserInput"
-              :disabled="colorState.inputDisabled"
-              v-model="colorState.colorInputList[index]"
-              maxlength="6"
+              class="mr-28 w-32 rounded-xl py-2 pl-8 text-xl font-light text-black"
             />
-            <p class="absolute left-[141px] text-xl font-light text-slate-500">
-              #
-            </p>
             <div
-              class="absolute right-[34px] top-1/2 h-0 w-0 -translate-y-1/2 border-8"
-              :style="{
-                backgroundColor: renderedColorList[index],
-                borderColor: renderedColorList[index],
-              }"
+              class="absolute right-20 top-1/2 -translate-y-1/2 border-8 border-white"
+            ></div>
+          </div>
+          <div class="relative inline-flex w-full flex-row justify-between">
+            <p class="text-2xl font-light text-white">Accent</p>
+            <input
+              class="mr-28 w-32 rounded-xl py-2 pl-8 text-xl font-light text-black"
+            />
+            <div
+              class="absolute right-20 top-1/2 -translate-y-1/2 border-8 border-white"
+            ></div>
+          </div>
+          <div
+            class="relative mb-0 inline-flex w-full flex-row justify-between"
+          >
+            <p class="text-2xl font-light text-white">Text</p>
+            <input
+              class="mr-28 w-32 rounded-xl py-2 pl-8 text-xl font-light text-black"
+            />
+            <div
+              class="absolute right-20 top-1/2 -translate-y-1/2 border-8 border-white"
             ></div>
           </div>
         </div>
-        <div class="mt-5 flex w-full items-center justify-between">
-          <p class="text-2xl font-light">Set coordinates</p>
-          <label class="relative inline-flex cursor-pointer items-center">
-            <input
-              type="checkbox"
-              value=""
-              class="peer sr-only relative z-20"
-              @click="changeCoordInputDisabled"
-            />
-            <div
-              class="relative z-10 h-6 w-11 rounded-full bg-gray-400 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none"
-            ></div>
-          </label>
-        </div>
-        <div
-          class="flex w-full flex-col space-y-3 border-l-2 border-l-optionsSeparator pt-2 pb-1 pl-4"
-        >
-          <div
-            class="relative inline-flex w-full flex-row items-center justify-between"
-          >
-            <p class="text-xl font-light text-white">Latitude</p>
-            <input
-              class="mr-[50px] w-40 rounded-xl py-2 px-4 text-xl font-light text-black focus:outline-none disabled:bg-stone-300"
-              type="text"
-              maxlength="15"
-              v-model="coordinateState.coordinates[0]"
-              :disabled="coordinateState.inputDisabled"
-            />
-          </div>
-          <div
-            class="relative inline-flex w-full flex-row items-center justify-between"
-          >
-            <p class="text-xl font-light text-white">Longitude</p>
-            <input
-              class="mr-[50px] w-40 rounded-xl py-2 px-4 text-xl font-light text-black focus:outline-none disabled:bg-stone-300"
-              type="text"
-              maxlength="15"
-              v-model="coordinateState.coordinates[1]"
-              :disabled="coordinateState.inputDisabled"
-            />
-          </div>
-        </div>
-        <p class="mt-5 text-2xl font-light">Extra Info</p>
-        <div
-          class="flex w-full flex-col space-y-1 border-l-2 border-l-optionsSeparator pt-1 pb-1 pl-4"
-        >
-          <div
-            class="inline-flex w-full items-center justify-between"
-            v-for="(item, index) in extraInfoState.text"
-            :key="index"
-          >
-            <p class="text-xl font-light text-white">{{ item }}</p>
-            <label class="relative inline-flex cursor-pointer items-center">
-              <input
-                type="checkbox"
-                value=""
-                class="peer sr-only relative z-20"
-                @click="
-                  extraInfoState.fieldState[index] =
-                    !extraInfoState.fieldState[index]
-                "
-                :checked="extraInfoState.fieldState[index]"
-                :disabled="
-                  !extraInfoState.fieldState[index] &&
-                  extraInfoState.restDisabled
-                "
-              />
-              <div
-                class="relative z-0 h-6 w-11 rounded-full bg-gray-400 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none"
-              ></div>
-            </label>
-          </div>
-        </div>
-        <p class="w-full text-center text-sm font-light text-[#B98080]">
-          you can only select up to 2 extra fields
-        </p>
       </div>
-
-      <div
-        class="absolute inset-0 left-32 flex h-full w-full flex-col justify-center"
-      >
-        <div class="mb-4 flex flex-row justify-center space-x-3">
+      <div class="mt-8 flex flex-col justify-center">
+        <div class="mb-4 flex flex-row space-x-3">
           <div
             v-for="index in 3"
             :key="index"
@@ -259,15 +184,10 @@ function updateSelectedTemp(index: number) {
   tempDropdown.value = false;
 }
 
-// colours stuff
-const hexCodePattern = /^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/g;
-
-interface typeColorState {
-  fieldNames: string[];
-  defaultColorList: string[];
-  colorInputList: Ref<string[]>;
-  inputDisabled: boolean;
+function hideSettings() {
+  console.log('hey');
 }
+
 const colorState: typeColorState = reactive({
   fieldNames: ['Background', 'Text', 'Accent'],
   defaultColorList: ['0C120C', 'FFFFFF', 'FFFFFF'],
@@ -322,12 +242,15 @@ const extraInfoState = reactive({
 });
 
 // actual routing
-const route = useRoute()
-const htmlParams = route.query
+const route = useRoute();
+const htmlParams = route.query;
 
-const {pending, data: posts} = useLazyFetch('')
+const { pending, data: posts } = useLazyFetch('');
 
-watch(() => route.query, () => {
-  fetchData()
-})
+watch(
+  () => route.query,
+  () => {
+    fetchData();
+  }
+);
 </script>
