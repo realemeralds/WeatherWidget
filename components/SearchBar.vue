@@ -65,15 +65,16 @@
 </template>
 
 <script setup lang="ts">
+import { GeolocateQuery } from './.nuxt/gql-sdk.ts';
+
 interface Props {
   resultsDisabled?: 'True' | 'False';
   sizing: 'compact' | 'expanded';
 }
 
 const props = defineProps<Props>();
-const delay = new Promise((res) => setTimeout(() => res('p1'), 1000));
 let store = '';
-let data = ref('');
+const data: GeolocateQuery['getLocationByName'] = ref();
 
 const userInput = ref('');
 const results = reactive([
@@ -85,7 +86,11 @@ const results = reactive([
 watch(userInput, async (newValue, oldValue) => {
   store = newValue;
   console.log('checking');
-  await new Promise((res) => setTimeout(() => res('p1'), 1000));
+  await new Promise((res) => {
+    setTimeout(() => {
+      res('p1');
+    }, 1000);
+  });
   if (store === newValue) {
     console.log('populating?');
     const response = await useAsyncGql('geolocate', { name: newValue });
