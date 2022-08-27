@@ -1,6 +1,12 @@
 import { defineNuxtConfig } from 'nuxt';
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      GQL_HOST: 'https://api.spacex.land/graphql', // overwritten by process.env.GQL_HOST
+    },
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   meta: {
     title: 'WeatherWidget',
@@ -23,8 +29,7 @@ export default defineNuxtConfig({
 
   target: 'static',
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxt/image-edge'],
-  buildModules: ['@nuxt3/graphql-codegen-module'],
+  modules: ['@nuxt/image-edge', 'nuxt-graphql-client'],
 
   tailwindcss: {
     configPath: '~/tailwind.config.js',
@@ -94,9 +99,5 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
-  },
-
-  build: {
-    transpile: ['@apollo/client', 'ts-invariant/process'],
   },
 });
