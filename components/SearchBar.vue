@@ -57,6 +57,10 @@
         </div>
       </div>
     </div>
+    <p class="text-3xl text-white">{{ data }}</p>
+    <p class="text-3xl text-white">
+      {{ userInput }}
+    </p>
   </div>
 </template>
 
@@ -67,6 +71,9 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+const delay = new Promise((res) => setTimeout(() => res('p1'), 1000));
+let store = '';
+let data = ref('');
 
 const userInput = ref('');
 const results = reactive([
@@ -74,6 +81,17 @@ const results = reactive([
   { name: 'Perth, USA', temperature: '33' },
   { name: 'Perth, Britain', temperature: '33' },
 ]);
+
+watch(userInput, async (newValue, oldValue) => {
+  store = newValue;
+  console.log('checking');
+  await new Promise((res) => setTimeout(() => res('p1'), 1000));
+  if (store === newValue) {
+    console.log('populating?');
+    const response = await useAsyncGql('geolocate', { name: newValue });
+    data.value = response.data.value.getLocationByName;
+  }
+});
 
 const isExpanded = computed(() => props.sizing !== 'compact');
 const searchBarStyles = ref({
