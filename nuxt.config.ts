@@ -3,7 +3,7 @@ import { defineNuxtConfig } from 'nuxt';
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
-      GQL_HOST: 'http://localhost:5000/graphql', // overwritten by process.env.GQL_HOST
+      GQL_HOST: process.env.GQL_HOST, // overwritten by process.env.GQL_HOST
     },
   },
 

@@ -1,8 +1,10 @@
-query geolocate($name: String!) {
+query Geolocate($name: String!) {
   getLocationByName(name: $name) {
     name
     country
     state
+    lat
+    lon
     currentWeather {
       main {
         temp

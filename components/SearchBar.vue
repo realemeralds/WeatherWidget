@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="flex items-center justify-center"
+      class="relative flex items-center justify-center"
       :class="{ 'w-[550px] ': isExpanded, 'w-[400px]': !isExpanded }"
     >
       <input
@@ -27,40 +27,61 @@
           />
         </div>
       </button>
-    </div>
-    <div
-      v-if="props.resultsDisabled !== 'True'"
-      class="mt-3 flex flex-col items-center"
-    >
       <div
-        v-for="(result, index) in results.slice(0, 2)"
-        class="flex flex-row items-center justify-between self-stretch rounded-b-4xl bg-slate-100 px-8 pb-3"
-        :class="resultsClassList[index]"
-        :key="index"
+        class="absolute left-0 right-0 top-14 mt-3 flex flex-col items-center"
       >
-        <p class="mr-3 text-2xl font-light" :class="index === 0 ? 'mt-1' : ''">
-          {{ result.name }}
-        </p>
-        <div class="flex flex-col items-center justify-center">
+        <NuxtLink
+          :to="`/result?name=${result.name}${
+            result.state ? `&state=${result.state}` : ''
+          }${result.country ? `&country=${result.country}` : ''}&lat=${
+            result.lat
+          }&lon=${result.lon}`"
+          v-for="(result, index) in results?.slice(0, 3)"
+          class="flex flex-row items-center justify-between self-stretch rounded-b-4xl px-8 pb-3"
+          :class="resultsClassList[index]"
+          :key="index"
+        >
           <p
-            v-if="index === 0"
-            class="relative top-[2px] text-center text-sm font-bold"
+            class="mr-3 text-2xl font-light"
+            :class="index === 0 ? 'mt-1' : ''"
           >
-            NOW
+            {{
+              `${result.name}${result.state ? `, ${result.state}` : ''}${
+                result.country ? `, ${result.country}` : ''
+              }`
+            }}
           </p>
-          <div
-            class="flex w-full flex-row items-center justify-between space-x-4"
-          >
-            <nuxt-img src="/partly_sunny.svg" width="32" />
-            <p class="text-xl font-light">{{ result.temperature }} °C</p>
+          <div class="flex flex-col items-center justify-center">
+            <p
+              v-if="index === 0"
+              class="relative top-[2px] text-center text-sm font-bold"
+            >
+              NOW
+            </p>
+            <div
+              class="flex w-full flex-row items-center justify-between space-x-4"
+            >
+              <nuxt-img src="/partly_sunny.svg" width="32" />
+              <p class="whitespace-nowrap text-xl font-light">
+                {{ result.temp }} °C
+              </p>
+            </div>
           </div>
-        </div>
+        </NuxtLink>
+      </div>
+      <div
+        v-if="!noResult && !!userInput"
+        class="absolute left-0 right-0 top-14 z-10 mt-3 flex flex-row items-center justify-center rounded-b-4xl rounded-t-4xl bg-firstResult px-8 py-5"
+      >
+        <p class="mr-3 text-2xl font-light">Loading...</p>
+      </div>
+      <div
+        v-if="noResult && !!userInput"
+        class="absolute left-0 right-0 top-14 mt-3 flex flex-row items-center justify-center self-stretch rounded-b-4xl rounded-t-4xl bg-firstResult px-8 py-5"
+      >
+        <p class="mr-3 text-2xl font-light">No results found :(</p>
       </div>
     </div>
-    <p class="text-3xl text-white">{{ data }}</p>
-    <p class="text-3xl text-white">
-      {{ userInput }}
-    </p>
   </div>
 </template>
 
@@ -73,28 +94,37 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
 let store = '';
-const data: GeolocateQuery['getLocationByName'] = ref();
-
 const userInput = ref('');
-const results = reactive([
-  { name: 'Perth, Australia', temperature: '33' },
-  { name: 'Perth, USA', temperature: '33' },
-  { name: 'Perth, Britain', temperature: '33' },
-]);
+const results: GeolocateQuery['getLocationByName'] = ref([]);
+const noResult: Ref<boolean> = ref<boolean>(false);
 
-watch(userInput, async (newValue, oldValue) => {
+watch(userInput, async (newValue) => {
   store = newValue;
-  console.log('checking');
+  noResult.value = false;
+  results.value = null;
+  if (!store) return;
   await new Promise((res) => {
     setTimeout(() => {
-      res('p1');
-    }, 1000);
+      res('Delay over!');
+    }, 300);
   });
   if (store === newValue) {
-    console.log('populating?');
-    const response = await useAsyncGql('geolocate', { name: newValue });
-    data.value = response.data.value.getLocationByName;
+    const { data } = await useAsyncGql('Geolocate', { name: newValue });
+    if (
+      !data?.value?.getLocationByName ||
+      data?.value?.getLocationByName?.length === 0
+    ) {
+      noResult.value = true;
+      return;
+    }
+    noResult.value = false;
+    // console.log(data?.value?.getLocationByName?.length);
+    results.value = data?.value?.getLocationByName?.map((element) => ({
+      ...element,
+      temp: element?.currentWeather?.main?.temp.toFixed(0),
+    }));
   }
 });
 
@@ -107,6 +137,6 @@ const searchBarStyles = ref({
 const resultsClassList = [
   'bg-firstResult relative rounded-t-4xl pt-2 z-20',
   'bg-secondResult relative bottom-8 pt-[46px] pb-4 z-10',
-  'bg-thirdResult relative bottom-16 pt-11 pb-5 z-0',
+  'bg-thirdResult relative bottom-16 pt-[46px] pb-4 z-0',
 ];
 </script>

@@ -3,7 +3,9 @@
     <div
       class="absolute top-4 flex h-min w-full flex-row justify-between pl-12 pr-8"
     >
-      <p class="text-4xl font-light text-white">WeatherWidget</p>
+      <NuxtLink to="../" class="text-4xl font-light text-white"
+        >WeatherWidget</NuxtLink
+      >
       <SearchBar sizing="compact" results-disabled="True" class="mt-[2px]" />
     </div>
     <div
@@ -190,7 +192,7 @@
       </div>
 
       <div
-        class="absolute inset-0 left-32 flex h-full w-full flex-col justify-center"
+        class="pointer-events-none absolute inset-0 left-32 flex h-full w-full flex-col justify-center"
       >
         <div class="mb-4 flex flex-row justify-center space-x-3">
           <div
@@ -202,7 +204,9 @@
             <p class="font-light">{{ index * 2 - 1 }}-day</p>
           </div>
         </div>
-        <p class="mb-3 text-center text-3xl font-bold text-white">Singapore</p>
+        <p class="mb-3 text-center text-3xl font-bold text-white">
+          {{ qVariables?.name }}
+        </p>
         <div class="flex flex-col items-center justify-center text-white">
           <p class="mr-1 text-xl">now</p>
           <div class="flex flex-row items-center space-x-4">
@@ -321,13 +325,14 @@ const extraInfoState = reactive({
   }),
 });
 
-// actual routing
-const route = useRoute()
-const htmlParams = route.query
+const route = useRoute();
+const qVariables = ref(route.query);
 
-const {pending, data: posts} = useLazyFetch('')
-
-watch(() => route.query, () => {
-  fetchData()
-})
+if (qVariables.value) {
+  const { data } = await useAsyncGql({
+    operation: 'getAllInfoByName',
+    variables: { name: qVariables.value.name },
+  });
+  console.log(data.value);
+}
 </script>

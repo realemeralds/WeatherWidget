@@ -22,7 +22,7 @@ module.exports = {
   rules: {
     'vue/multi-word-component-names': 1,
     'import/no-extraneous-dependencies': 1,
-    'import/no-unresolved': 1,
+    'import/no-unresolved': 0,
     'no-undef': 1,
   },
 };
