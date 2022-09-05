@@ -33,9 +33,7 @@
         <NuxtLink
           :to="`/result?name=${result.name}${
             result.state ? `&state=${result.state}` : ''
-          }${result.country ? `&country=${result.country}` : ''}&lat=${
-            result.lat
-          }&lon=${result.lon}`"
+          }&lat=${result.lat}&lon=${result.lon}`"
           v-for="(result, index) in results?.slice(0, 3)"
           class="flex flex-row items-center justify-between self-stretch rounded-b-4xl px-8 pb-3"
           :class="resultsClassList[index]"
