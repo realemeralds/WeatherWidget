@@ -1,0 +1,23 @@
+query currentWeather($lat: String!, $lon: String!, $config: Config) {
+	getForecastByCoords(lat: $lat, lon: $lon, config: $config) {
+		dt
+        dtTxt
+		main {
+			temp
+			feelsLike
+			humidity
+		}
+		weather {
+			description
+			id
+			main
+		}
+		cloudCover
+		visibility
+		volumeOfRain
+		wind {
+			speed
+			deg
+		}
+	}
+}

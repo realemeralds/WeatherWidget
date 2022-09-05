@@ -326,13 +326,18 @@ const extraInfoState = reactive({
 });
 
 const route = useRoute();
-const qVariables = ref(route.query);
 
-if (qVariables.value) {
+interface RouteParams {
+  lat: string,
+  lon: string
+}
+const qVariables: ref<RouteParams> = ref(route.query);
+
+if (qVariables.value && qVariables.value.lat && qVariables.value.lon) {
   const { data } = await useAsyncGql({
-    operation: 'getAllInfoByName',
-    variables: { name: qVariables.value.name },
+    operation: 'currentWeather',
+    variables: { lat: qVariables.value.lat, lon: qVariables.value.lon },
   });
-  console.log(data.value);
+  console.log(data.value.getForecastByCoords)
 }
 </script>
