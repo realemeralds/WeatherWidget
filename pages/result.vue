@@ -80,11 +80,12 @@ const extraInfoState = reactive({
 });
 
 const route = useRoute();
+const router = useRouter();
 
 watch(
   () => route.params,
   () => {
-    location.reload();
+    router.go(0);
   }
 );
 
@@ -96,9 +97,9 @@ interface RouteParams {
 const qVariables: ref<RouteParams> = ref(route.query);
 // const qVariables = ref({ lat: '1', lon: '1', name: 'Singapore' });
 let result;
-let key = 'current';
+const key = 'current';
 let iconSrc: string;
-let weatherDesc: string = 'partly cloudy';
+let weatherDesc = 'partly cloudy';
 
 if (qVariables?.value && qVariables?.value.lat && qVariables?.value.lon) {
   const { data } = await useAsyncGql('Forecast', {
@@ -108,7 +109,7 @@ if (qVariables?.value && qVariables?.value.lat && qVariables?.value.lon) {
   result = data.value.getForecastByCoords[key];
   console.log(result);
 
-  const id = result.weather[0].id;
+  const { id } = result.weather[0];
   console.log('-------------------ID-----------------------');
   console.log(id);
   const firstDigit = Math.round(id / 100);
@@ -121,7 +122,7 @@ if (qVariables?.value && qVariables?.value.lat && qVariables?.value.lon) {
       break;
     case 3:
       if (
-        6 <= ((result.dt + result.timezone) / 3600) % 24 &&
+        ((result.dt + result.timezone) / 3600) % 24 >= 6 &&
         ((result.dt + result.timezone) / 3600) % 24 <= 18
       ) {
         iconSrc = '/icons/day_drizzle.svg';
@@ -142,6 +143,7 @@ if (qVariables?.value && qVariables?.value.lat && qVariables?.value.lon) {
         case 511:
           iconSrc = '/icons/snow.svg';
           weatherDesc = 'snowing';
+          break;
         default:
           weatherDesc = 'heavy rain';
           break;
@@ -177,7 +179,7 @@ if (qVariables?.value && qVariables?.value.lat && qVariables?.value.lon) {
       switch (id) {
         case 800:
           if (
-            6 <= ((result.dt + result.timezone) / 3600) % 24 &&
+            ((result.dt + result.timezone) / 3600) % 24 >= 6 &&
             ((result.dt + result.timezone) / 3600) % 24 <= 18
           ) {
             iconSrc = '/icons/day_clear.svg';
@@ -185,9 +187,10 @@ if (qVariables?.value && qVariables?.value.lat && qVariables?.value.lon) {
             iconSrc = '/icons/night_clearqVariables?name.svg';
           }
           weatherDesc = 'sunny';
+          break;
         case 801:
           if (
-            6 <= ((result.dt + result.timezone) / 3600) % 24 &&
+            ((result.dt + result.timezone) / 3600) % 24 >= 6 &&
             ((result.dt + result.timezone) / 3600) % 24 <= 18
           ) {
             iconSrc = '/icons/day_cloud_1.svg';
@@ -204,7 +207,14 @@ if (qVariables?.value && qVariables?.value.lat && qVariables?.value.lon) {
         case 804:
           iconSrc = '/icons/cloud_3.svg';
           weatherDesc = 'overcast';
+          break;
+        default:
+          console.log('error in setting iconSrc');
+          break;
       }
+      break;
+    default:
+      console.log('error in setting iconSrc');
       break;
   }
 }

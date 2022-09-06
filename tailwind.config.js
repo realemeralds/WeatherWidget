@@ -10,6 +10,7 @@ module.exports = {
   variants: {
     extend: {},
   },
+  // eslint-disable-next-line
   plugins: [require('@tailwindcss/line-clamp')],
   theme: {
     borderRadius: {
