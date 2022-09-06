@@ -28,20 +28,25 @@
         </div>
       </button>
       <div
-        class="absolute left-0 right-0 top-14 mt-3 flex flex-col items-center"
+        class="absolute left-0 right-0 mt-3 flex flex-col items-center"
+        :class="isExpanded ? 'top-[60px]' : 'top-[40px]'"
       >
         <NuxtLink
           :to="`/result?name=${result.name}${
             result.state ? `&state=${result.state}` : ''
           }&lat=${result.lat}&lon=${result.lon}`"
+          @click="reload"
           v-for="(result, index) in results?.slice(0, 3)"
           class="flex flex-row items-center justify-between self-stretch rounded-b-4xl px-8 pb-3"
-          :class="resultsClassList[index]"
+          :class="[resultsClassList[sizing][index]]"
           :key="index"
         >
           <p
-            class="mr-3 text-2xl font-light"
-            :class="index === 0 ? 'mt-1' : ''"
+            class="mr-3 font-light"
+            :class="[
+              index === 0 ? 'mt-1' : '',
+              isExpanded ? 'text-2xl' : 'text-xl',
+            ]"
           >
             {{
               `${result.name}${result.state ? `, ${result.state}` : ''}${
@@ -59,8 +64,11 @@
             <div
               class="flex w-full flex-row items-center justify-between space-x-4"
             >
-              <nuxt-img src="/partly_sunny.svg" width="32" />
-              <p class="whitespace-nowrap text-xl font-light">
+              <nuxt-img src="/partly_sunny.svg" :width="isExpanded ? 32 : 24" />
+              <p
+                class="whitespace-nowrap font-light"
+                :class="isExpanded ? 'text-xl' : 'text-md'"
+              >
                 {{ result.temp }} °C
               </p>
             </div>
@@ -69,13 +77,15 @@
       </div>
       <div
         v-if="!noResult && !!userInput"
-        class="absolute left-0 right-0 top-14 z-10 mt-3 flex flex-row items-center justify-center rounded-b-4xl rounded-t-4xl bg-firstResult px-8 py-5"
+        class="p absolute left-0 right-0 z-10 mt-3 flex flex-row items-center justify-center rounded-b-4xl rounded-t-4xl bg-firstResult px-8"
+        :class="isExpanded ? 'top-[60px] py-5' : 'top-[40px] pt-2 pb-2'"
       >
         <p class="mr-3 text-2xl font-light">Loading...</p>
       </div>
       <div
         v-if="noResult && !!userInput"
-        class="absolute left-0 right-0 top-14 mt-3 flex flex-row items-center justify-center self-stretch rounded-b-4xl rounded-t-4xl bg-firstResult px-8 py-5"
+        class="absolute left-0 right-0 mt-3 flex flex-row items-center justify-center self-stretch rounded-b-4xl rounded-t-4xl bg-firstResult px-8"
+        :class="isExpanded ? 'top-[60px] py-5' : 'top-[40px] pt-1 pb-3'"
       >
         <p class="mr-3 text-2xl font-light">No results found :(</p>
       </div>
@@ -132,9 +142,16 @@ const searchBarStyles = ref({
   expanded: 'py-4 pl-7 pr-4',
 });
 
-const resultsClassList = [
-  'bg-firstResult relative rounded-t-4xl pt-2 z-20',
-  'bg-secondResult relative bottom-8 pt-[46px] pb-4 z-10',
-  'bg-thirdResult relative bottom-16 pt-[46px] pb-4 z-0',
-];
+const resultsClassList = {
+  expanded: [
+    'bg-firstResult relative rounded-t-4xl pt-2 z-20',
+    'bg-secondResult relative bottom-8 pt-[46px] pb-4 z-10',
+    'bg-thirdResult relative bottom-16 pt-[46px] pb-4 z-0',
+  ],
+  compact: [
+    'bg-firstResult relative rounded-t-4xl pt-1 z-20 pb-2',
+    'bg-secondResult relative bottom-8 pt-[40px] pb-2 z-10',
+    'bg-thirdResult relative bottom-16 pt-[40px] pb-2 z-0',
+  ],
+};
 </script>

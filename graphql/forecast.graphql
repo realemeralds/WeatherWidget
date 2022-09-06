@@ -22,7 +22,7 @@ query Forecast($lat: String!, $lon: String!, $config: Config) {
 				deg
 			}
 		}
-		threeday {
+		twoday {
 			dt
 			dtTxt
 			main {
@@ -44,7 +44,7 @@ query Forecast($lat: String!, $lon: String!, $config: Config) {
 				deg
 			}
 		}
-		fiveday {
+		fourday {
 			dt
 			dtTxt
 			main {
