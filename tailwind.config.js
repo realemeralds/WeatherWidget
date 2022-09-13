@@ -1,18 +1,17 @@
 module.exports = {
-  mode: 'jit',
   content: [
-    `./components/**/*.{vue,js,ts}`,
-    `./layouts/**/*.vue`,
-    `./pages/**/*.vue`,
-    `./plugins/**/*.{js,ts}`,
-    // Split in two files to avoid watching issues (https://github.com/nuxt-community/tailwindcss-module/issues/359)
-    `./nuxt.config.js`,
+    './components/**/*.{js,vue,ts}',
+    './layouts/**/*.vue',
+    './pages/**/*.{js,vue,ts}',
+    './plugins/**/*.{js,ts}',
+    './nuxt.config.{js,ts}',
   ],
   darkMode: 'media', // or 'media' or 'class'
   variants: {
     extend: {},
   },
-  plugins: [],
+  // eslint-disable-next-line
+  plugins: [require('@tailwindcss/line-clamp')],
   theme: {
     borderRadius: {
       none: '0',
@@ -24,6 +23,7 @@ module.exports = {
       '2xl': '1rem',
       '3xl': '1.5rem',
       '4xl': '2.25rem',
+      full: '9999px',
     },
     extend: {
       fontFamily: {
@@ -40,6 +40,10 @@ module.exports = {
       colors: {
         primaryAccent: '#4A1942',
         mainBG: '#0C120C',
+        optionsBG: '#1A201A',
+        optionsSeparator: '#4C564C',
+        optionsNormalBG: '#F9F9F9',
+        optionsFocusBG: '#DBDBDB',
         firstResult: '#D9D9D9',
         secondResult: '#E9E9E9',
         thirdResult: '#F8F7F7',

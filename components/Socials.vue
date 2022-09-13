@@ -1,6 +1,6 @@
 <template>
   <div class="absolute left-5 bottom-[14px] flex items-center space-x-5">
-    <a href="https://github.com/realemeralds">
+    <NuxtLink target="_blank" to="https://github.com/realemeralds">
       <nuxt-img
         src="/Github.svg"
         placeholder
@@ -8,8 +8,8 @@
         height="24"
         fit="contain"
       />
-    </a>
-    <a href="https://medium.com/@realemeralds">
+    </NuxtLink>
+    <NuxtLink target="_blank" to="https://medium.com/@realemeralds">
       <nuxt-img
         src="/Medium.svg"
         placeholder
@@ -17,8 +17,8 @@
         height="24"
         fit="contain"
       />
-    </a>
-    <a href="https://t.me/asleepatthewheel">
+    </NuxtLink>
+    <NuxtLink target="_blank" to="https://t.me/asleepatthewheel">
       <nuxt-img
         class="mr-1"
         src="/Telegram.svg"
@@ -27,7 +27,7 @@
         height="24"
         fit="contain"
       />
-    </a>
+    </NuxtLink>
     <p class="font-pro text-lg font-thin text-white">@realemeralds</p>
   </div>
 </template>

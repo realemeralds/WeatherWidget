@@ -1,6 +1,12 @@
 import { defineNuxtConfig } from 'nuxt';
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      GQL_HOST: process.env.GQL_HOST, // overwritten by process.env.GQL_HOST
+    },
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   meta: {
     title: 'WeatherWidget',
@@ -17,19 +23,69 @@ export default defineNuxtConfig({
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    '~/assets/scss/global.scss',
-    '@fortawesome/fontawesome-svg-core/styles.css',
-  ],
+  css: ['@fortawesome/fontawesome-svg-core/styles.css'],
 
   plugins: ['~/plugins/fontawesome.js'],
 
   target: 'static',
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxt/image-edge'],
+  modules: ['@nuxt/image-edge', 'nuxt-graphql-client'],
 
   tailwindcss: {
-    configPath: '~/tailwind.config.js'
+    configPath: '~/tailwind.config.js',
+    config: {
+      content: [
+        './components/**/*.{js,vue,ts}',
+        './layouts/**/*.vue',
+        './pages/**/*.vue',
+        './plugins/**/*.{js,ts}',
+        './nuxt.config.{js,ts}',
+      ],
+      darkMode: 'media', // or 'media' or 'class'
+      variants: {
+        extend: {},
+      },
+      plugins: [],
+      theme: {
+        borderRadius: {
+          none: '0',
+          sm: '0.125rem',
+          DEFAULT: '0.25rem',
+          md: '0.375rem',
+          lg: '0.5rem',
+          xl: '0.75rem',
+          '2xl': '1rem',
+          '3xl': '1.5rem',
+          '4xl': '2.25rem',
+        },
+        extend: {
+          fontFamily: {
+            serif: [
+              'Helvetica Neue',
+              'Helvetica',
+              'Roboto',
+              'Arial',
+              'sans-serif',
+            ],
+            pro: [
+              'SF Pro Display',
+              'SF Pro Icons',
+              'Helvetica Neue',
+              'Helvetica',
+              'Arial',
+              'sans-serif',
+            ],
+          },
+          colors: {
+            primaryAccent: '#4A1942',
+            mainBG: '#0C120C',
+            firstResult: '#D9D9D9',
+            secondResult: '#E9E9E9',
+            thirdResult: '#F8F7F7',
+          },
+        },
+      },
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

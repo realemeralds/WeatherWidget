@@ -1,0 +1,70 @@
+query Forecast($lat: String!, $lon: String!, $config: Config) {
+	getForecastByCoords(lat: $lat, lon: $lon, config: $config) {
+		current {
+			dt
+			timezone
+			main {
+				temp
+				feelsLike
+				humidity
+			}
+			weather {
+				description
+				id
+				main
+			}
+			cloudCover
+			visibility
+			volumeOfRain
+			volumeOfSnow
+			wind {
+				speed
+				deg
+			}
+		}
+		twoday {
+			dt
+			dtTxt
+			main {
+				temp
+				feelsLike
+				humidity
+			}
+			weather {
+				description
+				id
+				main
+			}
+			cloudCover
+			visibility
+			volumeOfRain
+			volumeOfSnow
+			wind {
+				speed
+				deg
+			}
+		}
+		fourday {
+			dt
+			dtTxt
+			main {
+				temp
+				feelsLike
+				humidity
+			}
+			weather {
+				description
+				id
+				main
+			}
+			cloudCover
+			visibility
+			volumeOfRain
+			volumeOfSnow
+			wind {
+				speed
+				deg
+			}
+		}
+	}
+}

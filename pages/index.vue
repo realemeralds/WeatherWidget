@@ -2,16 +2,12 @@
   <div
     class="relative flex h-screen w-screen flex-col items-center justify-center"
   >
-    <p class="mb-8 text-3xl font-light text-white">WeatherWidget</p>
-    <SearchBar />
+    <div class="relative bottom-16 flex flex-col items-center justify-center">
+      <p class="mb-5 font-pro text-4xl font-semibold text-white">
+        WeatherWidget
+      </p>
+      <SearchBar sizing="expanded" />
+    </div>
     <Socials />
   </div>
 </template>
-
-<script setup lang="ts">
-import { onMounted } from 'vue';
-
-onMounted(() => {
-  console.log('hello world?');
-});
-</script>
